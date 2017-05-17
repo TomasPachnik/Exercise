@@ -1,27 +1,31 @@
-package exercise.tomas.sk.exercise;
+package exercise.tomas.sk.exercise.activity;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.View;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.UUID;
+
+import exercise.tomas.sk.exercise.MyApplication;
+import exercise.tomas.sk.exercise.R;
+import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
+import exercise.tomas.sk.exercise.bo.dao.Type;
+import exercise.tomas.sk.exercise.configuration.Configuration;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+import sk.tomas.servant.core.Core;
+import sk.tomas.servant.core.impl.CoreImpl;
+import sk.tomas.servant.exception.BeanNotFoundException;
+import sk.tomas.servant.exception.ServantException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,10 +33,40 @@ public class MainActivity extends AppCompatActivity {
             "Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
             "Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple"};
 
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Core core = null;
+        try {
+            core = new CoreImpl(Configuration.class);
+        } catch (ServantException e) {
+            e.printStackTrace();
+        }
+        Realm realm;
+        try {
+            realm = ((Realm) core.getByName("realm"));
+        } catch (BeanNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Type type = realm.createObject(Type.class);
+                type.setId(UUID.randomUUID().toString());
+                type.setValue("asdasd");
+            }
+        });
+
+        RealmResults<Type> all = realm.where(Type.class).findAll();
+        for (Type type : all) {
+            Log.d("MyApp", type.toString());
+        }
+
         setContentView(R.layout.activity_main);
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // setSupportActionBar(toolbar);
@@ -74,5 +108,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        realm.close();
+        realm = null;
     }
 }
