@@ -11,12 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 import exercise.tomas.sk.exercise.R;
 import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
 import exercise.tomas.sk.exercise.bo.dao.Type;
-import io.realm.Realm;
 import io.realm.RealmResults;
 import sk.tomas.servant.core.Core;
 
@@ -31,15 +29,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         Core.AddToContext(this);
-
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                Type type = realm.createObject(Type.class);
-                type.setId(UUID.randomUUID().toString());
-                type.setValue("asdasd");
-            }
-        });
 
         RealmResults<Type> all = realm.where(Type.class).findAll();
         for (Type type : all) {
