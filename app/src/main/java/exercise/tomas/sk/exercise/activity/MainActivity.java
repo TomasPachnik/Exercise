@@ -15,15 +15,10 @@ import java.util.Arrays;
 import exercise.tomas.sk.exercise.R;
 import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
 import exercise.tomas.sk.exercise.bo.dao.Exercise;
-import exercise.tomas.sk.exercise.bo.dao.Type;
 import io.realm.RealmResults;
 import sk.tomas.servant.core.Core;
 
 public class MainActivity extends BaseActivity {
-
-    static final String[] FRUITS = new String[]{"Apple", "Avocado", "Banana",
-            "Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-            "Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +27,12 @@ public class MainActivity extends BaseActivity {
         Core.AddToContext(this);
 
         RealmResults<Exercise> all = realm.where(Exercise.class).findAll();
-        for (Exercise exercise : all) {
-            Log.d("MyApp", exercise.toString());
-        }
 
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerAdapter(Arrays.asList(FRUITS)));
+        recyclerView.setAdapter(new RecyclerAdapter(all));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

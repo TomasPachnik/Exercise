@@ -38,12 +38,25 @@ public class InitDatabase extends Application {
                         entry1.setType(type1);
                         entry1.setValue("value_1");
 
+                        Entry entry2 = realm.createObject(Entry.class, "1e10f7ef-e96b-4b34-a7e5-1c7a4f20a579");
+                        entry2.setLevel(3);
+                        entry2.setType(type2);
+                        entry2.setValue("value_2");
+
                         Exercise exercise1 = realm.createObject(Exercise.class, "66f4760f-b745-4d9e-92c2-a93656b4f70a");
                         exercise1.setDate(new Date());
                         exercise1.setEntry(entry1);
                         exercise1.setSeries(3);
                         exercise1.setRepetitions(30);
+
+                        Exercise exercise2 = realm.createObject(Exercise.class, "8479d219-70bc-4897-a00f-30277b64308e");
+                        exercise2.setDate(new Date());
+                        exercise2.setEntry(entry2);
+                        exercise2.setSeries(2);
+                        exercise2.setRepetitions(25);
+
                         realm.insert(exercise1);
+                        realm.insert(exercise2);
                     }
                 }).build();
 

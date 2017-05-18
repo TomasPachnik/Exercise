@@ -9,16 +9,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import exercise.tomas.sk.exercise.R;
+import exercise.tomas.sk.exercise.bo.dao.Exercise;
 
 /**
  * Created by anx00283 on 17-May-17.
  */
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
-    private List<String> stringList;
+    private List<Exercise> exercises;
 
-    public RecyclerAdapter(List<String> stringList) {
-        this.stringList = stringList;
+    public RecyclerAdapter(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 
     @Override
@@ -30,13 +31,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String st = stringList.get(position);
-        holder.textView.setText(st);
+        Exercise exercise = exercises.get(position);
+        holder.textView.setText(exercise.toString());
     }
 
     @Override
     public int getItemCount() {
-        return stringList.size();
+        return exercises.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
