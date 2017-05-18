@@ -1,7 +1,5 @@
 package exercise.tomas.sk.exercise.bo.dao;
 
-import java.util.UUID;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 

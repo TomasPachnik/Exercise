@@ -3,7 +3,6 @@ package exercise.tomas.sk.exercise.activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,21 +18,18 @@ import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
 import exercise.tomas.sk.exercise.bo.dao.Type;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import sk.tomas.servant.annotation.Inject;
 import sk.tomas.servant.core.Core;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     static final String[] FRUITS = new String[]{"Apple", "Avocado", "Banana",
             "Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
             "Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple"};
 
-    @Inject
-    private Realm realm;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Core.AddToContext(this);
 
         realm.executeTransaction(new Realm.Transaction() {
@@ -51,15 +47,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter(Arrays.asList(FRUITS)));
-
-
-        //setListAdapter(new ArrayAdapter<String>(this, R.layout.list, FRUITS));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
