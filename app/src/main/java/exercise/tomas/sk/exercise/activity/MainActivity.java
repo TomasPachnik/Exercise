@@ -14,6 +14,7 @@ import java.util.Arrays;
 
 import exercise.tomas.sk.exercise.R;
 import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
+import exercise.tomas.sk.exercise.bo.dao.Exercise;
 import exercise.tomas.sk.exercise.bo.dao.Type;
 import io.realm.RealmResults;
 import sk.tomas.servant.core.Core;
@@ -30,9 +31,9 @@ public class MainActivity extends BaseActivity {
 
         Core.AddToContext(this);
 
-        RealmResults<Type> all = realm.where(Type.class).findAll();
-        for (Type type : all) {
-            Log.d("MyApp", type.toString());
+        RealmResults<Exercise> all = realm.where(Exercise.class).findAll();
+        for (Exercise exercise : all) {
+            Log.d("MyApp", exercise.toString());
         }
 
         setContentView(R.layout.activity_main);
