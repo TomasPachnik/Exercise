@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -40,7 +41,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ExerciseDisplay exerciseDisplay = orderedExercises.get(position);
-        holder.textView.setText(exerciseDisplay.toString());
+        holder.textView.setText(exerciseDisplay.getText());
+        holder.progressBar.setProgress(exerciseDisplay.getDays());
     }
 
     @Override
@@ -50,10 +52,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
+        ProgressBar progressBar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.row_text);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.row_progressBar);
         }
     }
 

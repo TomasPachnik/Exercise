@@ -88,4 +88,10 @@ public class ExerciseDisplay {
                 ", days=" + days +
                 '}';
     }
+
+    public String getText() {
+        return name + " level " + level + "\n" +
+                series + "x" + repetitions;
+    }
+
 }

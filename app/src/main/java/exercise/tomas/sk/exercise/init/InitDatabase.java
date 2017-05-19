@@ -31,7 +31,7 @@ public class InitDatabase extends Application {
 
                         SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
                         String inputString1 = "23 04 2017";
-                        String inputString2 = "10 04 2017";
+                        String inputString2 = "10 05 2017";
 
                         Date date1 = new Date();
                         Date date2 = new Date();
