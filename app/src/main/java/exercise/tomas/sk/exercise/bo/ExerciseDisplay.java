@@ -1,5 +1,7 @@
 package exercise.tomas.sk.exercise.bo;
 
+import java.util.Date;
+
 /**
  * Created by anx00283 on 18-May-17.
  */
@@ -14,6 +16,12 @@ public class ExerciseDisplay {
     private int level;
     //percentual days
     private int days;
+    //help to find last series and repetitions
+    private Date date;
+
+    public ExerciseDisplay(String name) {
+        this.name = name;
+    }
 
     public ExerciseDisplay(String name, int series, int repetitions, int level) {
         this.name = name;
@@ -60,6 +68,14 @@ public class ExerciseDisplay {
 
     public void setDays(int days) {
         this.days = days;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Entry extends RealmObject {
     private String id;
     private int level;
     private Type type;
-    private String value;
+    private String name;
 
     public String getId() {
         return id;
@@ -39,12 +39,12 @@ public class Entry extends RealmObject {
         this.type = type;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Entry extends RealmObject {
                 "id='" + id + '\'' +
                 ", level=" + level +
                 ", type=" + type +
-                ", value='" + value + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
