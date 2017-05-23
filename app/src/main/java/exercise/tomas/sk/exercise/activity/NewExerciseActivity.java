@@ -64,7 +64,7 @@ public class NewExerciseActivity extends BaseActivity {
         };
     }
 
-    private void listeners() {
+    private void setListeners() {
         confirm.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -122,22 +122,9 @@ public class NewExerciseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
 
-        dateEditText = (EditText) findViewById(R.id.new_date);
-        series = (NumberPicker) findViewById(R.id.new_series);
-        level = (NumberPicker) findViewById(R.id.new_level);
-        repetitions = (NumberPicker) findViewById(R.id.new_repetitions);
-        exercises = (Spinner) findViewById(R.id.new_exercises);
-        confirm = (Button) findViewById(R.id.new_confirm);
-
-        listeners();
-
-        dateEditText.setText(sdf.format(new Date()));
-        level.setMinValue(1);
-        level.setMaxValue(10);
-        series.setMinValue(1);
-        series.setMaxValue(5);
-        repetitions.setMinValue(10);
-        repetitions.setMaxValue(50);
+        findByViewId();
+        setListeners();
+        inicialize();
 
         RealmResults<Type> all = realm.where(Type.class).findAll();
         ArrayAdapter<String> adp1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, (List) all);
@@ -147,6 +134,25 @@ public class NewExerciseActivity extends BaseActivity {
 
     private void updateLabel() {
         dateEditText.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void findByViewId() {
+        dateEditText = (EditText) findViewById(R.id.new_date);
+        series = (NumberPicker) findViewById(R.id.new_series);
+        level = (NumberPicker) findViewById(R.id.new_level);
+        repetitions = (NumberPicker) findViewById(R.id.new_repetitions);
+        exercises = (Spinner) findViewById(R.id.new_exercises);
+        confirm = (Button) findViewById(R.id.new_confirm);
+    }
+
+    private void inicialize() {
+        dateEditText.setText(sdf.format(new Date()));
+        level.setMinValue(1);
+        level.setMaxValue(10);
+        series.setMinValue(1);
+        series.setMaxValue(5);
+        repetitions.setMinValue(10);
+        repetitions.setMaxValue(50);
     }
 
 }
