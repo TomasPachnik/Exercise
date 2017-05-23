@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import exercise.tomas.sk.exercise.bo.ExerciseDisplay;
 import exercise.tomas.sk.exercise.bo.dao.Exercise;
+import io.realm.RealmModel;
 
 /**
  * Created by anx00283 on 19-May-17.
@@ -21,23 +22,23 @@ public class Util {
         List<ExerciseDisplay> result = new LinkedList<>();
         //add to list
         for (Exercise exercise : unordered) {
-            Integer position = findPositionByName(result, exercise.getEntry().getName());
+            Integer position = findPositionByName(result, exercise.getEntry().getType().getValue());
             if (position == null) {
-                result.add(new ExerciseDisplay(exercise.getEntry().getName()));
+                result.add(new ExerciseDisplay(exercise.getEntry().getType().getValue()));
             }
         }
         //set correct level
         for (Exercise exercise : unordered) {
-            Integer position = findPositionByName(result, exercise.getEntry().getName());
+            Integer position = findPositionByName(result, exercise.getEntry().getType().getValue());
             if (position != null) {
                 if (result.get(position).getLevel() < exercise.getEntry().getLevel()) {
-                    result.set(position, new ExerciseDisplay(exercise.getEntry().getName(), exercise.getSeries(), exercise.getRepetitions(), exercise.getEntry().getLevel()));
+                    result.set(position, new ExerciseDisplay(exercise.getEntry().getType().getValue(), exercise.getSeries(), exercise.getRepetitions(), exercise.getEntry().getLevel()));
                 }
             }
         }
         //set correct series and repetitions
         for (Exercise exercise : unordered) {
-            Integer position = findPositionByName(result, exercise.getEntry().getName());
+            Integer position = findPositionByName(result, exercise.getEntry().getType().getValue());
             if (position != null) {
                 if (result.get(position).getLevel() == exercise.getEntry().getLevel()) {
                     if (result.get(position).getDate() == null || result.get(position).getDate().getTime() < exercise.getDate().getTime()) {
@@ -50,7 +51,7 @@ public class Util {
         }
         //calculate date percentage
         for (Exercise exercise : unordered) {
-            Integer position = findPositionByName(result, exercise.getEntry().getName());
+            Integer position = findPositionByName(result, exercise.getEntry().getType().getValue());
             if (position != null) {
                 if (result.get(position).getLevel() == exercise.getEntry().getLevel()) {
                     int days = calculateDays(exercise);

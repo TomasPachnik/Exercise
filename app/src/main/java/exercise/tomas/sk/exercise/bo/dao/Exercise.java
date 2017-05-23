@@ -19,10 +19,6 @@ public class Exercise extends RealmObject {
     private int repetitions;
     private Date date;
 
-    public Exercise() {
-        this.id = UUID.randomUUID().toString();
-    }
-
     public String getId() {
         return id;
     }

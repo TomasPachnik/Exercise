@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import exercise.tomas.sk.exercise.R;
 import exercise.tomas.sk.exercise.bo.dao.Entry;
@@ -87,6 +88,7 @@ public class NewExerciseActivity extends BaseActivity {
                                 e.printStackTrace();
                             }
 
+                            exercise.setId(UUID.randomUUID().toString());
                             exercise.setDate(myDate);
                             exercise.setSeries(series.getValue());
                             exercise.setRepetitions(repetitions.getValue());
