@@ -5,14 +5,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import exercise.tomas.sk.exercise.R;
 import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
@@ -36,29 +31,12 @@ public class MainActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter(all));
 
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater layoutInflater
-                        = (LayoutInflater) getBaseContext()
-                        .getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = layoutInflater.inflate(R.layout.popup, null);
-                final PopupWindow popupWindow = new PopupWindow(
-                        popupView,
-                        RecyclerView.LayoutParams.WRAP_CONTENT,
-                        RecyclerView.LayoutParams.WRAP_CONTENT);
-
-                popupWindow.showAtLocation(fab, Gravity.CENTER, 0, 0);
-
-                Button close = (Button) popupView.findViewById(R.id.popupOk);
-                close.setOnClickListener(new View.OnClickListener() {
-
-                    public void onClick(View popupView) {
-                        popupWindow.dismiss();
-                    }
-                });
-
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }
