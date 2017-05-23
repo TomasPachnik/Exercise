@@ -31,9 +31,6 @@ public class Type extends RealmObject {
 
     @Override
     public String toString() {
-        return "Type{" +
-                "id=" + id +
-                ", value='" + value + '\'' +
-                '}';
+        return value;
     }
 }

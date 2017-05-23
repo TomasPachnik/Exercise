@@ -1,5 +1,6 @@
 package exercise.tomas.sk.exercise.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,8 @@ import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
 import exercise.tomas.sk.exercise.bo.dao.Exercise;
 import io.realm.RealmResults;
 import sk.tomas.servant.core.Core;
+
+import static android.R.attr.value;
 
 public class MainActivity extends BaseActivity {
 
@@ -35,8 +38,8 @@ public class MainActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent myIntent = new Intent(MainActivity.this, NewExerciseActivity.class);
+                startActivity(myIntent);
             }
         });
     }
@@ -66,8 +69,5 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        realm.close();
-        realm = null;
     }
 }
