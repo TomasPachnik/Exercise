@@ -24,15 +24,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Core.AddToContext(this);
-
-        RealmResults<Exercise> all = realm.where(Exercise.class).findAll();
-
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerAdapter(all));
+        load();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +36,12 @@ public class MainActivity extends BaseActivity {
                 startActivity(myIntent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        load();
     }
 
     @Override
@@ -70,4 +70,12 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    private void load() {
+        RealmResults<Exercise> all = realm.where(Exercise.class).findAll();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerAdapter(all));
+    }
+
 }

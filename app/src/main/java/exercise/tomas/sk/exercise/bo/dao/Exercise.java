@@ -1,6 +1,7 @@
 package exercise.tomas.sk.exercise.bo.dao;
 
 import java.util.Date;
+import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -17,6 +18,10 @@ public class Exercise extends RealmObject {
     private int series;
     private int repetitions;
     private Date date;
+
+    public Exercise() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     public String getId() {
         return id;

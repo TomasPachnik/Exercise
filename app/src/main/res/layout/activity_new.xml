@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,40 +9,59 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <Spinner
             android:id="@+id/new_exercises"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="101dp" />
+
+        <NumberPicker
+            android:id="@+id/new_level"
+            android:layout_width="match_parent"
+            android:layout_height="103dp"
+            android:scaleX="0.75"
+            android:scaleY="0.75" />
 
         <EditText
             android:id="@+id/new_date"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="56dp"
             android:ems="10"
+            android:focusable="false"
             android:inputType="date" />
 
-        <NumberPicker
-            android:id="@+id/new_series"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <NumberPicker
-            android:id="@+id/new_repetitions"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            <NumberPicker
+                android:id="@+id/new_series"
+                android:layout_width="192dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:scaleX="0.75"
+                android:scaleY="0.75" />
+
+            <NumberPicker
+                android:id="@+id/new_repetitions"
+                android:layout_width="192dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:scaleX="0.75"
+                android:scaleY="0.75" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/new_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="229dp"
+            android:layout_height="68dp"
             android:text="@string/add" />
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
