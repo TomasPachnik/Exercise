@@ -30,6 +30,7 @@
             android:layout_height="56dp"
             android:ems="10"
             android:focusable="false"
+            android:onClick="onDateClicked"
             android:inputType="date" />
 
         <LinearLayout
@@ -60,6 +61,7 @@
             android:id="@+id/new_confirm"
             android:layout_width="229dp"
             android:layout_height="68dp"
+            android:onClick="onConfirm"
             android:text="@string/add" />
 
     </LinearLayout>

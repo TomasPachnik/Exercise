@@ -23,10 +23,8 @@ import java.util.List;
 import exercise.tomas.sk.exercise.R;
 import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
 import exercise.tomas.sk.exercise.bo.dao.Exercise;
-import exercise.tomas.sk.exercise.util.Util;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import sk.tomas.jsonConverter.core.Core;
 
 public class MainActivity extends BaseActivity {
 
@@ -39,21 +37,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
-
         load();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, NewExerciseActivity.class);
-                startActivity(myIntent);
-            }
-        });
     }
 
     @Override
@@ -65,33 +52,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        MenuItem action_import = menu.findItem(R.id.action_import);
-        MenuItem action_export = menu.findItem(R.id.action_export);
-
-        action_import.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(context, "Import", Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });
-
-        action_export.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-
-                new AsyncTaskRunner().execute();
-                return true;
-            }
-        });
-
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     private void load() {
@@ -99,7 +60,6 @@ public class MainActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapter(all));
-
     }
 
     private void writeToFile(String data, Context context) {
@@ -112,22 +72,28 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public void onFabeClicked(View view) {
+        Intent myIntent = new Intent(MainActivity.this, NewExerciseActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void importOnClick(MenuItem item) {
+        Toast.makeText(context, "Import", Toast.LENGTH_LONG).show();
+    }
+
+    public void exportOnClick(MenuItem item) {
+        new AsyncTaskRunner().execute();
+    }
+
     private class AsyncTaskRunner extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
             Realm realm = Realm.getDefaultInstance();
-
             List<Exercise> all = realm.where(Exercise.class).findAll();
-
             all = realm.copyFromRealm(all);
-
             String json = new Gson().toJson(all);
-
-            Log.d("json: ", json);
-
             realm.close();
-
             return json;
         }
 
@@ -135,7 +101,6 @@ public class MainActivity extends BaseActivity {
             writeToFile(result, context);
             Toast.makeText(context, "data exported", Toast.LENGTH_LONG).show();
         }
-
     }
 
 }
