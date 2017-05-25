@@ -2,4 +2,6 @@
     <string name="app_name">Exercise</string>
     <string name="action_settings">Settings</string>
     <string name="add">Pridaj</string>
+    <string name="main_import">Import</string>
+    <string name="main_export">Export</string>
 </resources>

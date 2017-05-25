@@ -60,6 +60,31 @@ public class Exercise extends RealmObject {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Exercise exercise = (Exercise) o;
+
+        if (series != exercise.series) return false;
+        if (repetitions != exercise.repetitions) return false;
+        if (id != null ? !id.equals(exercise.id) : exercise.id != null) return false;
+        if (entry != null ? !entry.equals(exercise.entry) : exercise.entry != null) return false;
+        return date != null ? date.equals(exercise.date) : exercise.date == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (entry != null ? entry.hashCode() : 0);
+        result = 31 * result + series;
+        result = 31 * result + repetitions;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Exercise{" +
                 "id='" + id + '\'' +

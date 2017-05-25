@@ -91,4 +91,20 @@ public class Util {
         return null;
     }
 
+    public static String toJson(List<Exercise> exercises) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (Exercise exercise : exercises) {
+            sb.append("{");
+            sb.append("\"id\" : \"").append(exercise.getId()).append("\",");
+            sb.append("\"series\" : \"").append(exercise.getSeries()).append("\",");
+            sb.append("\"repetitions\" : \"").append(exercise.getRepetitions()).append("\",");
+            sb.append("\"date\" : \"").append(exercise.getDate()).append("\"");
+            sb.append("},");
+        }
+
+        sb.append("]");
+        return sb.toString();
+    }
+
 }

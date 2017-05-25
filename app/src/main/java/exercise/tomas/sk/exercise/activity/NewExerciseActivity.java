@@ -70,38 +70,26 @@ public class NewExerciseActivity extends BaseActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Type type = (Type) exercises.getSelectedItem();
-                        RealmResults<Entry> resultList = realm
+
+                        final Type type = (Type) exercises.getSelectedItem();
+                        final RealmResults<Entry> resultList = realm
                                 .where(Entry.class)
                                 .equalTo("level", level.getValue())
                                 .equalTo("type.id", type.getId())
                                 .findAll();
 
-                        if (resultList.size() == 1) {
-                            final Exercise exercise = new Exercise();
-                            exercise.setEntry(resultList.get(0));
-
-                            Date myDate = new Date();
-                            try {
-                                myDate = sdf.parse(dateEditText.getText().toString());
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            exercise.setId(UUID.randomUUID().toString());
-                            exercise.setDate(myDate);
-                            exercise.setSeries(series.getValue());
-                            exercise.setRepetitions(repetitions.getValue());
+                        final List<Entry> entries = realm.copyFromRealm(resultList);
+                        if (entries.size() == 1) {
 
                             realm.executeTransactionAsync(new Realm.Transaction() {
                                 public void execute(Realm realm) {
-                                    realm.insertOrUpdate(exercise);
+
+                                    realm.insertOrUpdate(createExercise(entries.get(0)));
+
                                 }
                             });
-
-                            Toast.makeText(context, "Uložené", Toast.LENGTH_LONG).show();
                         }
-
+                        Toast.makeText(context, "Uložené", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -117,6 +105,7 @@ public class NewExerciseActivity extends BaseActivity {
                                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                     }
                 });
+
     }
 
     @Override
@@ -132,6 +121,23 @@ public class NewExerciseActivity extends BaseActivity {
         ArrayAdapter<String> adp1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, (List) all);
         adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         exercises.setAdapter(adp1);
+    }
+
+    private Exercise createExercise(Entry entry) {
+        Date myDate = new Date();
+        try {
+            myDate = sdf.parse(dateEditText.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Exercise exercise = new Exercise();
+        exercise.setEntry(entry);
+        exercise.setId(UUID.randomUUID().toString());
+        exercise.setDate(myDate);
+        exercise.setSeries(series.getValue());
+        exercise.setRepetitions(repetitions.getValue());
+        return exercise;
     }
 
     private void updateLabel() {

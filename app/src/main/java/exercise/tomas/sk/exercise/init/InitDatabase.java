@@ -1,6 +1,7 @@
 package exercise.tomas.sk.exercise.init;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,6 +64,7 @@ public class InitDatabase extends Application {
                 }).build();
 
         Realm.setDefaultConfiguration(config);
+        Log.d("Realm path: ", config.getPath());
 
     }
 
