@@ -1,5 +1,7 @@
 package exercise.tomas.sk.exercise.util;
 
+import android.os.Environment;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -105,6 +107,14 @@ public class Util {
 
         sb.append("]");
         return sb.toString();
+    }
+
+    public static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
     }
 
 }
