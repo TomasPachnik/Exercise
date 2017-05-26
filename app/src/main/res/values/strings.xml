@@ -4,4 +4,5 @@
     <string name="add">Pridaj</string>
     <string name="main_import">Import</string>
     <string name="main_export">Export</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

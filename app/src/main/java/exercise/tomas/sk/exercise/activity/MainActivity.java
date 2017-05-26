@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +18,11 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Scanner;
 
 import exercise.tomas.sk.exercise.R;
 import exercise.tomas.sk.exercise.adapter.RecyclerAdapter;
@@ -68,9 +63,9 @@ public class MainActivity extends BaseActivity {
     private void load() {
         RealmResults<Exercise> all = realm.where(Exercise.class).findAll();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        recyclerView.invalidate();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerAdapter(all));
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(all);
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     private void writeToFile(String data, Context context) {
@@ -98,7 +93,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void onFabeClicked(View view) {
+    public void onFabClicked(View view) {
         Intent myIntent = new Intent(MainActivity.this, NewExerciseActivity.class);
         startActivity(myIntent);
     }
